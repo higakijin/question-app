@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get 'users/index'
     get 'users/destroy'
   end
+  resources :posts
+  resources :users
   # get 'answers/create'
   # get 'posts/index'
   # get 'posts/new'

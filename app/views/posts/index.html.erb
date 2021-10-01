@@ -1,2 +1,29 @@
 <h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+
+<ul class="nav">
+  <li class="nav-item">
+    <%= link_to "ユーザー一覧", users_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+    <%= link_to "質問一覧", posts_path, class: "nav-link" %>
+  </li>
+</ul>
+<%= link_to "全て", posts_path %>
+<%= link_to "未解決", "#" %>
+<%= link_to "解決済み", "#" %>
+<br>
+<%= link_to "質問する", new_post_path %>
+<form class="form-inline my-2 my-lg-0">
+  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
+</form>
+
+<% @posts.each do |post| %>
+  <%= link_to post.title, post_path(post) %> ID: 
+  <% if post.user_id.nil? %>
+    匿名ユーザー
+  <% else %>
+    <%= post.user_id %>
+  <% end %> 
+  <br>
+<% end %>

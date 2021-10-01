@@ -1,2 +1,10 @@
 <h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+
+<%= link_to "編集", edit_post_path(@post), class: "btn btn-success btn-sm" %>
+<%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-danger btn-sm" %>
+<br>
+<%= @post.title %>
+<br>
+<%= @post.body %>
+<br>
+<%= @post.user_id %>
