@@ -9,6 +9,7 @@ class PostsController < ApplicationController
 
   def create
     post = Post.new(post_params)
+    post.user_id = session[:user_id]
     post.save
     redirect_to posts_path
   end
@@ -19,6 +20,10 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    if @post.user_id == session[:user_id]
+    else
+      redirect_to post_path(@post)
+    end
   end
 
   def update

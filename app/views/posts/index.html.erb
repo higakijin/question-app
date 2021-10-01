@@ -13,6 +13,10 @@
 <%= link_to "解決済み", "#" %>
 <br>
 <%= link_to "質問する", new_post_path %>
+<br>
+<% if session[:user_id] %>
+  <%= link_to "ログアウト", logout_path, method: :delete %>
+<% end %>
 <form class="form-inline my-2 my-lg-0">
   <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>

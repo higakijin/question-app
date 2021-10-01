@@ -1,7 +1,9 @@
 <h1>Posts#show</h1>
 
-<%= link_to "編集", edit_post_path(@post), class: "btn btn-success btn-sm" %>
-<%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-danger btn-sm" %>
+<% if session[:user_id] == @post.user_id%>
+  <%= link_to "編集", edit_post_path(@post), class: "btn btn-success btn-sm" %>
+  <%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-danger btn-sm" %>
+<% end %>
 <br>
 <%= @post.title %>
 <br>

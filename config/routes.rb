@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   end
   resources :posts
   resources :users
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  delete '/logout' => 'sessions#destroy'
   # get 'answers/create'
   # get 'posts/index'
   # get 'posts/new'

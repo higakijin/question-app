@@ -1,2 +1,9 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h1>サインアップ</h1>
+
+<%= form_with model:@user do |f| %>
+  <%= f.text_field :name, placeholder: "ユーザー名" %>
+  <%= f.email_field :email, placeholder: "メールアドレス" %>
+  <%= f.password_field :password, placeholder: "パスワード" %>
+  <%= f.password_field :password_confirmation, placeholder: "パスワード（確認）" %>
+  <%= f.submit "登録" %>
+<% end %>
