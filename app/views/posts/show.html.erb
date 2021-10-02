@@ -5,6 +5,14 @@
   <%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-danger btn-sm" %>
   <% if @post.solved == false %>
     <%= link_to "解決した", solved_button_path(@post), method: :post, data: { confirm: "解決済みにしますか？" } %>
+  <% else %>
+    <p>解決済み</p>
+  <% end %>
+<% else %>
+  <% if @post.solved == false %>
+    <p>未解決</p>
+  <% else %>
+    <p>解決済み</p>
   <% end %>
 <% end %>
 <br>
