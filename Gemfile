@@ -66,3 +66,6 @@ gem 'jquery-rails'
 
 gem 'bcrypt'
 gem 'pry-rails'
+
+gem "refile", require: "refile/rails", github: 'manfe/refile'
+gem "refile-mini_magick"

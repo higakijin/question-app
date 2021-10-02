@@ -1,0 +1,8 @@
+<h1>ユーザー編集</h1>
+
+<%= form_with model:@user do |f| %>
+  <%= f.text_field :name, placeholder: "ユーザー名" %>
+  <%= f.email_field :email, placeholder: "メールアドレス" %>
+  <%= f.attachment_field :image, placeholder: "プロフィール画像" %>
+  <%= f.submit "登録" %>
+<% end %>

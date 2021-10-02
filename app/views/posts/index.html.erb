@@ -7,6 +7,11 @@
   <li class="nav-item">
     <%= link_to "質問一覧", posts_path, class: "nav-link" %>
   </li>
+  <li class="nav-item">
+    <% if session[:user_id] %>
+      <%= link_to "ユーザー設定", edit_user_path(session[:user_id]), class: "nav-link" %>
+    <% end %>
+  </li>
 </ul>
 <%= link_to "全て", posts_path %>
 <%= link_to "未解決", "#" %>
@@ -16,6 +21,8 @@
 <br>
 <% if session[:user_id] %>
   <%= link_to "ログアウト", logout_path, method: :delete %>
+<% else %>
+  <%= link_to "ログイン", login_path %>
 <% end %>
 <form class="form-inline my-2 my-lg-0">
   <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -23,8 +30,13 @@
 </form>
 
 <% @posts.each do |post| %>
+  <% if post.user_id %>
+    <%= attachment_image_tag User.find(post.user_id), :image, :fill, 150, 150, fallback: "no_image.png" %>
+  <% else %>
+    <%= image_tag "no_image.png" %>
+  <% end %>
   <%= link_to post.title, post_path(post) %> ID: 
-  <% if post.user_id.nil? %>
+  <% if post.user_id == 0 %>
     匿名ユーザー
   <% else %>
     <%= post.user_id %>

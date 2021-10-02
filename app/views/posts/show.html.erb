@@ -1,8 +1,11 @@
 <h1>Posts#show</h1>
 
-<% if session[:user_id] == @post.user_id%>
+<% if session[:user_id] == @post.user_id %>
   <%= link_to "編集", edit_post_path(@post), class: "btn btn-success btn-sm" %>
   <%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-danger btn-sm" %>
+  <% if @post.solved == false %>
+    <%= link_to "解決した", solved_button_path(@post), method: :post, data: { confirm: "解決済みにしますか？" } %>
+  <% end %>
 <% end %>
 <br>
 <%= @post.title %>
@@ -10,3 +13,5 @@
 <%= @post.body %>
 <br>
 <%= @post.user_id %>
+<br>
+<%= link_to "質問一覧へ", posts_path %>

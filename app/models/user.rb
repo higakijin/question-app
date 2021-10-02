@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  attachment :image
 
-  has_many :posts
+  has_many :posts, dependent: :destroy
 end

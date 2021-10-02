@@ -1,9 +1,12 @@
 class SessionsController < ApplicationController
   def new
+    if session[:user_id]
+      #すでにログインしています
+      redirect_to posts_path
+    end
   end
 
   def create
-    binding.pry
     user = User.find_by(email: session_params[:email])
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
