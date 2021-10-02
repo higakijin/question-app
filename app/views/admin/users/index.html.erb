@@ -1,2 +1,11 @@
 <h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<%= link_to "ユーザー一覧", admin_users_path %>
+<%= link_to "質問一覧", admin_posts_path %>
+<br>
+
+<% @users.each do |user| %>
+  <%= attachment_image_tag user, :image, :fill, 150, 150, fallback: "no_image.png" %>
+  <%= user.name %>
+  <%= link_to "削除", admin_user_path(user), method: :delete, data: { confirm: "削除しますか？" } %>
+  <br>
+<% end %>

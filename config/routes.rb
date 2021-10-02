@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   root 'posts#index'
   namespace :admin do
-    get 'posts/index'
-    get 'posts/destroy'
+    get 'posts' => 'posts#index', as: 'posts'
+    delete 'posts/:id' => 'posts#destroy', as: 'post'
   end
   namespace :admin do
-    get 'users/index'
-    get 'users/destroy'
+    get 'users'=> 'users#index', as: 'users'
+    delete 'users/:id' => 'users#destroy', as: 'user'
   end
   resources :posts
   resources :users

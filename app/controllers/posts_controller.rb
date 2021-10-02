@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     else
       post.user_id = 0
     end
-    post.save!
+    post.save
     redirect_to posts_path
   end
 
