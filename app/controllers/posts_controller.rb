@@ -47,7 +47,17 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.solved = true
     @post.save
-    render :show
+    redirect_to post_path(@post)
+  end
+
+  def unsolved
+    @posts = Post.where(solved: false)
+    render :index
+  end
+
+  def solved
+    @posts = Post.where(solved: true)
+    render :index
   end
 
   private
