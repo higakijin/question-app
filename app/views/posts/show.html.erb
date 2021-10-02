@@ -23,3 +23,15 @@
 <%= @post.user_id %>
 <br>
 <%= link_to "質問一覧へ", posts_path %>
+<br>
+<%= form_with(model:[@post, @comment], method: :post) do |f| %>
+  <%= f.text_area :body %>
+  <%= f.submit "回答" %>
+<% end %>
+
+<h2>回答一覧</h2>
+<% @comments.each do |comment| %>
+  <%= User.find(comment.user_id).name %>
+  <%= comment.body %>
+  <br>
+<% end %>

@@ -3,4 +3,5 @@ class User < ApplicationRecord
   attachment :image
 
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
 end

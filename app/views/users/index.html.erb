@@ -1,4 +1,6 @@
 <h1>Users#index</h1>
 <% @users.each do |user| %>
+  <%= attachment_image_tag user, :image, :fill, 150, 150, fallback: "no_image.png" %>
   <%= user.name %>
+  <br>
 <% end %>
