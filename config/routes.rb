@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get 'users'=> 'users#index', as: 'users'
     delete 'users/:id' => 'users#destroy', as: 'user'
   end
-  resources :posts do
+  resources :posts, except: [:index] do
     resources :answers, only: [:create, :destroy], as: 'comments'
   end
   resources :users

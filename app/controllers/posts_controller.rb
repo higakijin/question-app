@@ -15,7 +15,7 @@ class PostsController < ApplicationController
       post.user_id = 0
     end
     post.save
-    redirect_to posts_path
+    redirect_to root_path
   end
 
   def show
@@ -40,14 +40,14 @@ class PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to posts_path
+    redirect_to root_path
   end
 
   def solved_button
     @post = Post.find(params[:id])
     @post.solved = true
     @post.save
-    redirect_to post_path(@post)
+    redirect_to root_path
   end
 
   def unsolved

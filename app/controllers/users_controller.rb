@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     user.save
     # ここ追加
     session[:user_id] = user.id
-    redirect_to posts_path
+    redirect_to root_path
   end
 
   def index
@@ -18,14 +18,14 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     if @user.id != session[:user_id]
-      redirect_to posts_path
+      redirect_to root_path
     end
   end
 
   def update
     user = User.find(params[:id])
     if user.update(user_params)
-      redirect_to posts_path
+      redirect_to root_path
     else
       render edit_user_path
     end

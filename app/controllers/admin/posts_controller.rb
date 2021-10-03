@@ -14,6 +14,6 @@ class Admin::PostsController < ApplicationController
   private
     
     def require_admin
-      redirect_to posts_path unless User.find(session[:user_id]).admin == true
+      redirect_to root_path unless User.find(session[:user_id]).admin == true
     end
 end

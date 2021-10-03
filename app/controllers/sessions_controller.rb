@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def new
     if session[:user_id]
       #すでにログインしています
-      redirect_to posts_path
+      redirect_to root_path
     end
   end
 
@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: session_params[:email])
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
-      redirect_to posts_path
+      redirect_to root_path
     else
       render :new
     end
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to posts_path
+    redirect_to root_path
   end
 
   private
