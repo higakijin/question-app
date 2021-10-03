@@ -18,7 +18,7 @@
 </div>
 
 <div class="container mt-5">
-  <% @posts.each do |post| %>
+  <% @posts.reverse_each do |post| %>
     <%= link_to post_path(post), style: "text-decoration: none;"  do %>
       <div class="row">
         <div class="col-1 offset-1 mr-3">
@@ -29,7 +29,7 @@
           <% end %>
         </div>
         <div class="col-9 d-flex align-items-center">
-          <h4><%= post.title %></h4>
+          <h5><%= post.title %></h5>
         </div>
       </div>
       <hr>

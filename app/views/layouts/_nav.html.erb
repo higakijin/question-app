@@ -27,7 +27,7 @@
           <%= attachment_image_tag User.find(session[:user_id]), :image, :fill, 60, 60, fallback: "no_image.png", style: "border-radius: 50%;" %>
         <% end %>
       <% else %>
-        匿名ユーザー
+        No user
       <% end %>
     </li>
   </ul>
