@@ -1,12 +1,39 @@
 <%= render 'layouts/nav' %>
 
-<%= link_to "ユーザー一覧", admin_users_path %>
-<%= link_to "質問一覧", admin_posts_path %>
-<br>
+<div class="row">
+  <div class="col-1 offset-1 border-right">
+    <ul class="list-unstyled">
+      <li>
+        <%= link_to "ユーザー一覧", admin_users_path, class:"nav-link" %>
+      </li>
+      <hr>
+      <li>
+        <%= link_to "質問一覧", admin_posts_path, class:"nav-link" %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-9">
 
-<% @users.each do |user| %>
-  <%= attachment_image_tag user, :image, :fill, 150, 150, fallback: "no_image.png" %>
-  <%= user.name %>
-  <%= link_to "削除", admin_user_path(user), method: :delete, data: { confirm: "削除しますか？" } %>
-  <br>
-<% end %>
+    <%= form_with url: "#", class:"form-inline" do |f| %>
+      <%= f.text_field :key_word, placeholder:"検索ワード", class:"form-control mr-sm-2 col-9 offset-1" %>
+      <%= f.submit "検索", class:"btn btn-outline-success col-1" %>
+    <% end %>
+
+    <div class="container mt-4">
+      <% @users.each do |user| %>
+        <div class="row mb-3">
+          <div class="col-1 offset-1 mr-3">
+            <%= attachment_image_tag user, :image, :fill, 70, 70, fallback: "no_image.png", size: "70x70", style: "border-radius: 50%;"  %>
+          </div>
+          <div class="col-5 d-flex align-items-center">
+            <h6><%= user.name %></h6>
+          </div>
+          <div class="col-1 d-flex align-items-center">
+            <%= link_to "削除", admin_user_path(user), method: :delete, data: { confirm: "このユーザーを削除しますか？" }, class: "btn btn-danger btn-sm text-light" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

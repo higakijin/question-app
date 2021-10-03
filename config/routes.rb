@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root 'posts#index'
+  get '/admin' => 'admin/users#new'
+  post '/admin' => 'admin/users#create'
   namespace :admin do
     get 'posts' => 'posts#index', as: 'posts'
     delete 'posts/:id' => 'posts#destroy', as: 'post'
@@ -19,6 +21,8 @@ Rails.application.routes.draw do
   
   get '/unsolved' => 'posts#unsolved'
   get '/solved' => 'posts#solved'
+
+  
   # get 'answers/create'
   # get 'posts/index'
   # get 'posts/new'
