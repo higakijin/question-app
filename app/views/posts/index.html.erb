@@ -22,11 +22,7 @@
     <%= link_to post_path(post), style: "text-decoration: none;"  do %>
       <div class="row">
         <div class="col-1 offset-1 mr-3">
-          <% if post.user_id %>
-            <%= attachment_image_tag User.find(post.user_id), :image, :fill, 70, 70, fallback: "no_image.png", size: "70x70", style: "border-radius: 50%;" %>
-          <% else %>
-            <%= image_tag "no_image.png" %>
-          <% end %>
+          <%= attachment_image_tag User.find(post.user_id), :image, :fill, 70, 70, fallback: "no_image.png", size: "70x70", style: "border-radius: 50%;" %>
         </div>
         <div class="col-9 d-flex align-items-center">
           <h5><%= post.title %></h5>

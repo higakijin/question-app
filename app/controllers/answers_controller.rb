@@ -4,14 +4,9 @@ class AnswersController < ApplicationController
     comment.post_id = params[:post_id]
     if session[:user_id]
       comment.user_id = session[:user_id]
-    else
-      comment.user_id = 0
+      comment.save
+      redirect_to post_path(params[:post_id])
     end
-    comment.save
-    redirect_to post_path(params[:post_id])
-  end
-
-  def destroy
   end
 
   private

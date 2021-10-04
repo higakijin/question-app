@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   def new
+    if session[:user_id]
+      notice = "すでにログインしています。"
+      redirect_to root_path
+    end
     @user = User.new
   end
 

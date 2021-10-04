@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :require_admin, only: [:new]
+
   def index
     @posts = Post.all
   end
@@ -8,14 +10,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-    if session[:user_id]
-      post.user_id = session[:user_id]
+    @post = Post.new(post_params)
+    @post.user_id = session[:user_id]
+    if @post.save
+      redirect_to root_path
     else
-      post.user_id = 0
+      render :new
     end
-    post.save
-    redirect_to root_path
   end
 
   def show
@@ -66,4 +67,7 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :body)
     end
 
+    def require_admin
+      redirect_to login_path unless session[:user_id]
+    end
 end
