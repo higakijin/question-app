@@ -4,6 +4,12 @@ class Admin::PostsController < ApplicationController
   def index
     @posts = Post.all
   end
+  
+  def search
+    @posts = Post.search(params[:keyword])
+    @keyword = params[:keyword]
+    render :index
+  end
 
   def destroy
     post = Post.find(params[:id])

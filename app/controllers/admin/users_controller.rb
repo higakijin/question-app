@@ -21,6 +21,12 @@ class Admin::UsersController < ApplicationController
     @users = User.all
   end
 
+  def search
+    @users = User.search(params[:keyword])
+    @keyword = params[:keyword]
+    render :index
+  end
+
   def destroy
     user = User.find(params[:id])
     if user.admin == false

@@ -4,15 +4,17 @@ Rails.application.routes.draw do
   post '/admin' => 'admin/users#create'
   namespace :admin do
     get 'posts' => 'posts#index', as: 'posts'
+    get 'posts/search' => 'posts#search'
     delete 'posts/:id' => 'posts#destroy', as: 'post'
-  end
-  namespace :admin do
+
     get 'users'=> 'users#index', as: 'users'
+    get 'users/search' => 'users#search'
     delete 'users/:id' => 'users#destroy', as: 'user'
   end
   resources :posts, except: [:index] do
     resources :answers, only: [:create, :destroy], as: 'comments'
   end
+  get 'search' => 'posts#search'
   resources :users
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
