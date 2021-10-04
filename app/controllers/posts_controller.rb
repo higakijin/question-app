@@ -19,6 +19,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = session[:user_id]
     if @post.save
+      User.select {|user| user.id != @post.user_id }.each do |send_user|
+        SampleMailer.alert_when_posted(send_user, @post).deliver
+      end
       redirect_to root_path
     else
       render :new

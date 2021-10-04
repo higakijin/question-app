@@ -1,11 +1,24 @@
 class AnswersController < ApplicationController
   def create
+    post = Post.find(params[:post_id])
+
     comment = Comment.new(comment_params)
     comment.post_id = params[:post_id]
     if session[:user_id]
       comment.user_id = session[:user_id]
       comment.save
       redirect_to post_path(params[:post_id])
+
+      users = []
+      users.push User.find(post.user_id)
+      post.comments.each do |com|
+        users.push User.find(com.user_id)
+      end
+      users = users.uniq
+
+      users.select {|user| user.id != comment.user_id }.each do |user|
+        SampleMailer.alert_when_commented(user, post, comment).deliver
+      end
     end
   end
 
