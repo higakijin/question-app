@@ -1,6 +1,12 @@
 <%= render 'layouts/nav' %>
 
 <div class="container mt-5">
+  <% if flash[:posted] %>
+    <%= flash[:posted] %>
+  <% end %>
+  <% if @comment.errors.any? %>
+    空のコメントは投稿できません。
+  <% end %>
   <div class="row">
     <div class="col-1 mr-5">
         <%= attachment_image_tag User.find(@post.user_id), :image, :fill, 70, 70, fallback: "no_image.png", size: "70x70", style: "border-radius: 50%;" %>
@@ -43,7 +49,7 @@
   <hr>
 
   <% if session[:user_id] %>
-    <%= form_with(model:[@post, @comment], method: :post, class:"mt-4") do |f| %>
+    <%= form_with(model:[@post, @comment], method: :post, class:"mt-4", local: true) do |f| %>
       <div class="form-group offset-1 col-10 mt-5">
         <%= f.text_area :body, placeholder: "回答をこちらに入力", class: "form-control", rows: 5 %>
       </div>

@@ -22,6 +22,7 @@ class PostsController < ApplicationController
       User.select {|user| user.id != @post.user_id }.each do |send_user|
         SampleMailer.alert_when_posted(send_user, @post).deliver
       end
+      flash[:message] = "質問をしました。回答を待ちましょう！"
       redirect_to root_path
     else
       render :new
@@ -42,9 +43,13 @@ class PostsController < ApplicationController
   end
 
   def update
-    post = Post.find(params[:id])
-    post.update(post_params)
-    redirect_to post_path(post)
+    @post = Post.find(params[:id])
+    if  @post.update(post_params)
+      flash[:posted] = "編集しました"
+      redirect_to post_path(@post)
+    else
+      render :edit
+    end
   end
 
   def destroy

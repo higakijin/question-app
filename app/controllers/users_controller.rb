@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def new
     if session[:user_id]
-      notice = "すでにログインしています。"
+      flash[:message] = "すでにログインしています。"
       redirect_to root_path
     end
     @user = User.new
@@ -9,10 +9,13 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-    user.save
-    # ここ追加
-    session[:user_id] = user.id
-    redirect_to root_path
+    if user.save
+      session[:user_id] = user.id
+      flash[:message] = "サインアップしました。"
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def index

@@ -10,10 +10,13 @@ Rails.application.routes.draw do
     get 'users'=> 'users#index', as: 'users'
     get 'users/search' => 'users#search'
     delete 'users/:id' => 'users#destroy', as: 'user'
+
+    get 'comments' => 'comments#index', as: 'comments'
+    get 'comments/search' => 'comments#search'
+    delete 'comments/:id' => 'comments#destroy', as: 'comment'
   end
-  resources :posts, except: [:index] do
-    resources :answers, only: [:create, :destroy], as: 'comments'
-  end
+  resources :posts, except: [:index] 
+  post '/posts/:post_id' => 'answers#create', as: 'post_comments'
   get 'search' => 'posts#search'
   resources :users
   get '/login' => 'sessions#new'

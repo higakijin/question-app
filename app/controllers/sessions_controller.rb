@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if session[:user_id]
-      #すでにログインしています
+      flash[:message] = "すでにログインしています。"
       redirect_to root_path
     end
   end
@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: session_params[:email])
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
+      flash[:message] = "ログインしました。"
       redirect_to root_path
     else
       render :new
@@ -18,6 +19,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    flash[:message] = "ログアウトしました。"
     redirect_to root_path
   end
 

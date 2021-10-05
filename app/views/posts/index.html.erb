@@ -1,6 +1,9 @@
 <%= render 'layouts/nav' %>
 
 <div class="container">
+  <% if flash[:message] %>
+    <p><%= flash[:message] %></p>
+  <% end %>
   <table class="table table-bordered border-dark">
     <tbody>
       <tr>

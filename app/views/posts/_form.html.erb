@@ -1,5 +1,11 @@
 <div class="container" style="margin-top: 100px;">
-  <%= form_with model: post do |f| %>
+  <% if post.errors.any? %>
+    <% post.errors.full_messages.each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+    <br>
+  <% end %>
+  <%= form_with model: post, local: true do |f| %>
     <div class="form-group">
       <%= f.text_area :title, placeholder: "質問タイトル", class: "w-100 form-control", rows: 2 %>
     </div>
