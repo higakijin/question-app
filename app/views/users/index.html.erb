@@ -1,6 +1,6 @@
 <%= render 'layouts/nav' %>
 
-<div class="container" style="margin-top: 50px;">
+<div class="container mb-5" style="margin-top: 50px;">
   <% @users.each do |user| %>
     <div class="row mb-4">
       <div class="col-1 mr-2">
@@ -11,4 +11,5 @@
       </div>
     </div>
   <% end %>
+  <%= paginate(@users) %>
 </div>

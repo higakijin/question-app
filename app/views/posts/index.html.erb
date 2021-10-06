@@ -20,7 +20,7 @@
   <% end %>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
   <% @posts.reverse_each do |post| %>
     <%= link_to post_path(post), style: "text-decoration: none;"  do %>
       <div class="row">
@@ -34,4 +34,5 @@
       <hr>
     <% end %>
   <% end %>
+  <%= paginate(@posts) %>
 </div>

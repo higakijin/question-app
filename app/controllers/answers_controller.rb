@@ -1,7 +1,6 @@
 class AnswersController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
-
     @comment = Comment.new(comment_params)
     @comment.post_id = params[:post_id]
     if session[:user_id]

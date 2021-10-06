@@ -2,11 +2,12 @@ class PostsController < ApplicationController
   before_action :require_admin, only: [:new]
 
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).per(10)
   end
 
   def search
     @posts = Post.search(params[:keyword])
+    @posts = @posts.page(params[:page]).per(10)
     @keyword = params[:keyword]
     render :index
   end
@@ -67,11 +68,13 @@ class PostsController < ApplicationController
 
   def unsolved
     @posts = Post.where(solved: false)
+    @posts = @posts.page(params[:page]).per(10)
     render :index
   end
 
   def solved
     @posts = Post.where(solved: true)
+    @posts = @posts.page(params[:page]).per(10)
     render :index
   end
 

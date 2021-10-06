@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-  post '/posts/:id' => 'posts#solved_button', as: 'solved_button'
+  post '/posts/:id/solved' => 'posts#solved_button', as: 'solved_button'
   
   get '/unsolved' => 'posts#unsolved'
   get '/solved' => 'posts#solved'
