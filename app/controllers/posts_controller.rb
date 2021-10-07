@@ -3,10 +3,25 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.page(params[:page]).per(10)
+    @path = "/search"
   end
 
   def search
     @posts = Post.search(params[:keyword])
+    @posts = @posts.page(params[:page]).per(10)
+    @keyword = params[:keyword]
+    render :index
+  end
+
+  def search_unsolved
+    @posts = Post.search(params[:keyword]).where(solved: false)
+    @posts = @posts.page(params[:page]).per(10)
+    @keyword = params[:keyword]
+    render :index
+  end
+
+  def search_solved
+    @posts = Post.search(params[:keyword]).where(solved: true)
     @posts = @posts.page(params[:page]).per(10)
     @keyword = params[:keyword]
     render :index
@@ -69,12 +84,14 @@ class PostsController < ApplicationController
   def unsolved
     @posts = Post.where(solved: false)
     @posts = @posts.page(params[:page]).per(10)
+    @path = "/unsolved/search"
     render :index
   end
 
   def solved
     @posts = Post.where(solved: true)
     @posts = @posts.page(params[:page]).per(10)
+    @path = "/solved/search"
     render :index
   end
 

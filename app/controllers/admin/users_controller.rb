@@ -33,8 +33,8 @@ class Admin::UsersController < ApplicationController
       user.destroy
       redirect_to admin_users_path
     else
-      # adminユーザーは削除できない
-      puts "削除しませんでした。"
+      flash[:message] = "管理人ユーザーは削除できません。"
+      redirect_to admin_users_path
     end
   end
 

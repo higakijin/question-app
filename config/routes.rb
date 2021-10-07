@@ -25,21 +25,8 @@ Rails.application.routes.draw do
   post '/posts/:id/solved' => 'posts#solved_button', as: 'solved_button'
   
   get '/unsolved' => 'posts#unsolved'
+  get '/unsolved/search' => 'posts#search_unsolved'
   get '/solved' => 'posts#solved'
+  get '/solved/search' => 'posts#search_solved'
 
-  
-  # get 'answers/create'
-  # get 'posts/index'
-  # get 'posts/new'
-  # get 'posts/create'
-  # get 'posts/show'
-  # get 'posts/edit'
-  # get 'posts/destroy'
-  # get 'posts/index'
-  # get 'sessions/new'
-  # get 'sessions/create'
-  # get 'users/new'
-  # get 'users/create'
-  # get 'users/index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
