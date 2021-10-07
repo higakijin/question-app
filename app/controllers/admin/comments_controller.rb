@@ -1,8 +1,7 @@
 class Admin::CommentsController < ApplicationController
   # before_action :require_admin
-
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).per(30)
   end
 
   def search

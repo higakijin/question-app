@@ -10,7 +10,7 @@
         <%= f.submit "検索", class:"btn btn-outline-success col-1" %>
       <% end %>
 
-      <div class="container mt-4">
+      <div class="container my-4">
         <% @posts.each do |post| %>
           <div class="row mb-3">
             <div class="col-1 offset-1 mr-3">
@@ -24,6 +24,7 @@
             </div>
           </div>
         <% end %>
+        <%= paginate(@posts) %>
       </div>
     </div>
   </div>
