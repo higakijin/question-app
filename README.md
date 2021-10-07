@@ -37,3 +37,7 @@ $ rails c
 [2] pry(main)> user.admin = true
 [3] pry(main)> user.save
 ```
+
+# Adminページへの遷移
+ルートパスからadminページに移動することはできません。  
+'/admin/posts', '/admin/users', '/admin/comments' のどれかにアクセスしてください。
