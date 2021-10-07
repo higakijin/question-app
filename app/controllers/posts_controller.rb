@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :require_admin, only: [:new]
+  before_action :require_login, only: [:new]
+  before_action :post_find, only: [:show, :edit, :update, :destroy, :solved_button]
 
   def index
     @posts = Post.page(params[:page]).per(10)
@@ -46,20 +47,17 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = Comment.where(post_id: @post.id)
   end
 
   def edit
-    @post = Post.find(params[:id])
     if @post.user_id != session[:user_id]
       redirect_to post_path(@post)
     end
   end
 
   def update
-    @post = Post.find(params[:id])
     if  @post.update(post_params)
       flash[:posted] = "編集しました"
       redirect_to post_path(@post)
@@ -69,13 +67,11 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
+    @post.destroy
     redirect_to root_path
   end
 
   def solved_button
-    @post = Post.find(params[:id])
     @post.solved = true
     @post.save
     redirect_to root_path
@@ -101,7 +97,11 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :body)
     end
 
-    def require_admin
+    def require_login
       redirect_to login_path unless session[:user_id]
+    end
+
+    def post_find
+      @post = Post.find(params[:id])
     end
 end
