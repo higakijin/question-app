@@ -1,44 +1,32 @@
-<%= render 'layouts/nav' %>
+<div class="container-fluid">
+  <%= render 'layouts/nav' %>
 
-<div class="row">
-  <div class="col-1 offset-1 border-right">
-    <ul class="list-unstyled">
-      <li>
-        <%= link_to "ユーザー一覧", admin_users_path, class:"nav-link" %>
-      </li>
-      <hr>
-      <li>
-        <%= link_to "質問一覧", admin_posts_path, class:"nav-link" %>
-      </li>
-    </ul>
-  </div>
-  <div class="col-9">
+  <div class="row">
+    <%= render "admin/sidebar" %>
 
-    <%= form_with url: "#", class:"form-inline" do |f| %>
-      <%= f.text_field :key_word, placeholder:"検索ワード", class:"form-control mr-sm-2 col-9 offset-1" %>
-      <%= f.submit "検索", class:"btn btn-outline-success col-1" %>
-    <% end %>
-
-    <div class="container mt-4">
-      <% @posts.each do |post| %>
-        <div class="row mb-3">
-          <div class="col-1 offset-1 mr-3">
-            <%= attachment_image_tag User.find(post.user_id), :image, :fill, 70, 70, fallback: "no_image.png", size: "70x70", style: "border-radius: 50%;" %>
-          </div>
-          <div class="col-5 d-flex align-items-center">
-            <h6><%= post.title %></h6>
-          </div>
-          <div class="col-1 d-flex align-items-center">
-            <%= link_to "削除", admin_post_path(post), method: :delete, data: { confirm: "この投稿を削除しますか？" }, class: "btn btn-danger btn-sm text-light" %>
-          </div>
-        </div>
+    <div class="col-8">
+      <%= form_with url: admin_posts_search_path, method: :get, local: true, class:"form-inline" do |f| %>
+        <%= f.text_field :keyword, placeholder:"検索ワード", value: @keyword, class:"form-control mr-sm-2 col-9 offset-1" %>
+        <%= f.submit "検索", class:"btn btn-outline-success col-1" %>
       <% end %>
+
+      <div class="container my-4">
+        <% @posts.each do |post| %>
+          <div class="row mb-3">
+            <div class="col-1 offset-1 mr-3">
+              <%= attachment_image_tag User.find(post.user_id), :image, :fill, 70, 70, fallback: "no_image.png", size: "70x70", style: "border-radius: 50%;" %>
+            </div>
+            <div class="col-8 d-flex align-items-center">
+              <h6><%= post.title %></h6>
+            </div>
+            <div class="col-1 d-flex align-items-center">
+              <%= link_to "削除", admin_post_path(post), method: :delete, data: { confirm: "この投稿を削除しますか？" }, class: "btn btn-danger btn-sm text-light" %>
+            </div>
+          </div>
+        <% end %>
+        <%= paginate(@posts) %>
+      </div>
     </div>
   </div>
 </div>
-
-
-
-
-
 

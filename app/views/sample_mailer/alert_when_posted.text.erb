@@ -1,0 +1,13 @@
+<%= @user.name %> さん
+
+こんにちは、QuestionApp運営局です！
+ただいまサイト内に質問が投稿されました。
+<%= link_to "こちら", "http://localhost:3000/posts/#{@post.id}" %>からご回答をお待ちしております！
+
+======================
+
+質問者: <%= User.find(@post.user_id).name %>
+タイトル: <%= @post.title %>
+内容: <%= @post.body %>
+
+=======================

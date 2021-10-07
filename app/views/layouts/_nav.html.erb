@@ -24,7 +24,7 @@
     <li class="nav-item">
       <% if session[:user_id] %>
         <%= link_to edit_user_path(session[:user_id]), class: "nav-link" do %>
-          <%= attachment_image_tag User.find(session[:user_id]), :image, :fill, 60, 60, fallback: "no_image.png", style: "border-radius: 50%;" %>
+          <%= attachment_image_tag User.find(session[:user_id]), :image, :fill, 60, 60, fallback: "no_image.png", size: "60x60", style: "border-radius: 50%;" %>
         <% end %>
       <% else %>
         No user

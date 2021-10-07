@@ -18,7 +18,13 @@ class Admin::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.page(params[:page]).per(30)
+  end
+
+  def search
+    @users = User.search(params[:keyword])
+    @keyword = params[:keyword]
+    render :index
   end
 
   def destroy
@@ -27,8 +33,8 @@ class Admin::UsersController < ApplicationController
       user.destroy
       redirect_to admin_users_path
     else
-      # adminユーザーは削除できない
-      puts "削除しませんでした。"
+      flash[:message] = "管理人ユーザーは削除できません。"
+      redirect_to admin_users_path
     end
   end
 
