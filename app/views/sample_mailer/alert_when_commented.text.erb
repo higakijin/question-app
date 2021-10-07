@@ -1,0 +1,11 @@
+<%= @user.name %> さん
+
+こんにちは、QuestionApp運営局です！<br>
+ただいま<%= User.find(@comment.user_id).name %>さんが回答しました<br>
+<%= link_to "こちら", "http://localhost:3000/posts/#{@post.id}" %>から確認してください！
+
+======================
+質問タイトル: <%= @post.title %>
+回答者: <%= User.find(@comment.user_id).name %>
+回答: <%= @comment.body %>
+======================

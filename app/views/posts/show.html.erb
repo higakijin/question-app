@@ -1,0 +1,77 @@
+<%= render 'layouts/nav' %>
+
+<div class="container mt-5">
+  <% if flash[:posted] %>
+    <%= flash[:posted] %>
+  <% end %>
+  <% if @comment.errors.any? %>
+    空のコメントは投稿できません。
+  <% end %>
+  <div class="row">
+    <div class="col-1 mr-5">
+        <%= attachment_image_tag User.find(@post.user_id), :image, :fill, 70, 70, fallback: "no_image.png", size: "70x70", style: "border-radius: 50%;" %>
+    </div>
+    <% if session[:user_id] == @post.user_id %>
+      <div class="col-5 d-flex align-items-center">
+        <h4><%= @post.title %></h4>
+      </div>
+      <div class="col-3">
+        <%= link_to "編集", edit_post_path(@post), class: "btn btn-success btn-sm w-25 mr-3" %>
+        <%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-danger btn-sm w-25" %>
+      </div>
+      <div class="col-2">
+        <% if @post.solved == false %>
+          <%= link_to solved_button_path(@post), method: :post, data: { confirm: "解決済みにしますか？" } do %>
+            <h5 class="btn btn-primary">解決した<i class="fas fa-mouse-pointer ml-2"></i></h5>
+          <% end %>
+        <% else %>
+          <h5 class="text-light bg-info p-2 text-center">解決済み</h5>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-8 d-flex align-items-center">
+        <h4><%= @post.title %></h4>
+      </div>
+      <div class="col-2">
+        <% if @post.solved == false %>
+          <h5 class="text-light bg-secondary p-2 text-center">未解決<i class="fas fa-exclamation ml-2"></i></h5>
+        <% else %>
+          <h5 class="text-light bg-info p-2 text-center">解決済み</h5>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row my-4">
+    <div class="offset-1 col-10">
+      <%= @post.body %>
+    </div>
+  </div>
+  <hr>
+
+  <% if session[:user_id] %>
+    <%= form_with(model:[@post, @comment], method: :post, class:"mt-4", local: true) do |f| %>
+      <div class="form-group offset-1 col-10 mt-5">
+        <%= f.text_area :body, placeholder: "回答をこちらに入力", class: "form-control", rows: 5 %>
+      </div>
+      <div class="form-group mt-4">
+        <%= f.submit "回答する", class: "btn btn-primary mx-auto d-flex align-items-center mx-auto" %>
+      </div>
+    <% end %>
+    <div class="row">
+      <%= link_to "質問一覧へ", root_path, class: "ml-auto mr-5 nav-link" %>
+    </div>
+  <% else %>
+    <p>コメント機能を利用するには<%= link_to "ログイン", login_path %>してください</p>
+  <% end %>
+
+  <% @comments.each do |comment| %>
+    <div class="row d-flex align-items-center m-4">
+      <div class="col-1 offset-1">
+        <%= attachment_image_tag User.find(comment.user_id), :image, :fill, 50, 50, fallback: "no_image.png", size: "50x50", style: "border-radius: 50%;", class: "mr-3  offset-1" %>
+      </div>
+      <div class="col-10">
+        <%= comment.body %>
+      </div>
+    </div>
+  <% end %>
+</div>

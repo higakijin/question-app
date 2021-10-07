@@ -1,0 +1,15 @@
+<%= render 'layouts/nav' %>
+
+<div class="container mb-5" style="margin-top: 50px;">
+  <% @users.each do |user| %>
+    <div class="row mb-4">
+      <div class="col-1 mr-2">
+        <%= attachment_image_tag user, :image, :fill, 70, 70, fallback: "no_image.png", size: "70x70", style: "border-radius: 50%;" %>
+      </div>
+      <div class="col-8 d-flex align-items-center">
+        <%= user.name %>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate(@users) %>
+</div>
